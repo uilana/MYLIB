@@ -1,4 +1,4 @@
-import _ from "./myLip.js"
+import _ from "./lip.js"
 // ARRAY Methods
 // console.log(_.chunk([13, 34, 12, 13, 34, 12], 4));
 // console.log(_.compact([23, "", undefined, 33]));
@@ -127,8 +127,12 @@ function Foo() {
 
 // => ['a', 'b']
 
-console.log(_.forIn(new Foo, function(element) {
-    if (typeof element == "string") {
-        return element + "1"
-    }
-}));
+//console.log(_.forIn(new Foo, function(element) {
+//     if (typeof element == "string") {
+//         return element + "1"
+//     }
+// }));
+var object = { 'a': [{ 'b': { 'c': 3 } }] };
+console.log(_.get(object, 'a[0].b.c'));
+
+// => 3
