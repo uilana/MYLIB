@@ -117,10 +117,10 @@ import _ from "./lip.js"
 
 // tail, sortedIndex,take дз
 
-function Foo() {
-    this.a = ('a');
-    this.b = ('b');
-}
+// function Foo() {
+//     this.a = ('a');
+//     this.b = ('b');
+// }
 
 // Foo.prototype.c = ('c');
 // console.log(_.functions(new Foo));
@@ -132,7 +132,30 @@ function Foo() {
 //         return element + "1"
 //     }
 // }));
-var object = { 'a': [{ 'b': { 'c': 3 } }] };
-console.log(_.get(object, 'a[0].b.c'));
-
+// var object = { 'a': [{ 'b': { 'c': 3 } }] };
+// console.log(_.get(object, 'a[0].b.c'));
 // => 3
+// var object = { 'a': { 'b': 2 } };
+// console.log(_.has(object, 'a'));
+// console.log(_.has(object, ['a', 'b']));
+// var object = { 'a': 1, 'b': 2, 'c': 1 };
+// console.log(_.invert(object));
+var object = { 'a': [{ 'b': { 'c': [1, 2, 3, 4] } }] };
+// console.log(_.invoke(object, 'a[0].b.c.slice', 1, 3));
+// function Foo() {
+//     this.a = 1;
+//     this.b = 2;
+// }
+// Foo.prototype.c = 3;
+// console.log(_.keys(new Foo));
+// var users = {
+//     'fred': { 'user': 'obb', 'age': 40 },
+//     'pebbles': { 'user': 'peb', 'age': 1 },
+//     'pebbles2': { 'user': 'peb' }
+// };
+// console.log(_.mapValues(users, function(o) { return o.age; }));
+var object = { 'a': 1, 'b': '2', 'c': 3 };
+console.log(_.omit(object, ['a', 'c']));
+
+var object = { 'a': 1, 'b': '2', 'c': 3 };
+console.log(_.pick(object, ['a', 'c']));
