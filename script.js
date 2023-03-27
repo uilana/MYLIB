@@ -135,12 +135,14 @@ import _ from "./lip.js"
 // var object = { 'a': [{ 'b': { 'c': 3 } }] };
 // console.log(_.get(object, 'a[0].b.c'));
 // => 3
+
+
 // var object = { 'a': { 'b': 2 } };
 // console.log(_.has(object, 'a'));
 // console.log(_.has(object, ['a', 'b']));
 // var object = { 'a': 1, 'b': 2, 'c': 1 };
 // console.log(_.invert(object));
-var object = { 'a': [{ 'b': { 'c': [1, 2, 3, 4] } }] };
+// var object = { 'a': [{ 'b': { 'c': [1, 2, 3, 4] } }] };
 // console.log(_.invoke(object, 'a[0].b.c.slice', 1, 3));
 // function Foo() {
 //     this.a = 1;
@@ -154,8 +156,32 @@ var object = { 'a': [{ 'b': { 'c': [1, 2, 3, 4] } }] };
 //     'pebbles2': { 'user': 'peb' }
 // };
 // console.log(_.mapValues(users, function(o) { return o.age; }));
-var object = { 'a': 1, 'b': '2', 'c': 3 };
-console.log(_.omit(object, ['a', 'c']));
+// var object = { 'a': 1, 'b': '2', 'c': 3 };
+// console.log(_.omit(object, ['a', 'c']));
 
-var object = { 'a': 1, 'b': '2', 'c': 3 };
-console.log(_.pick(object, ['a', 'c']));
+// var object = { 'a': 1, 'b': '2', 'c': 3 };
+// console.log(_.pick(object, ['a', 'c']));
+
+// var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
+// console.log(_.at(object, ['a[0].b.c', 'a[1]']));
+
+var object = {
+    'a': [{ 'b': 2 }, { 'd': 4 }]
+};
+
+var other = {
+    'a': [{ 'c': 3 }, { 'e': 5 }]
+};
+// console.log(_.merge(object, other));
+// => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+// => { 'a': [{ 'b': 2, 'd': 4 }, { 'c': 3, 'e': 5 }] }
+function Foo() {
+    this.a = 1;
+    this.b = 2;
+}
+// console.log(_.toPairs(new Foo));
+var object = { 'a': [{ 'b': { 'c': 3 } }] };
+
+console.log(_.set(object, 'a[0].b.c', 4));
+console.log(object.a[0].b.c);
+// => 4

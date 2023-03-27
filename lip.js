@@ -349,23 +349,6 @@ const myLip = {
 
         return arr3
     },
-    at: function(obj, arrPath) {
-        let arrPath2 = [arrPath[0]]
-            // console.log(obj["a"][0]["b"]["c"], obj["a"][1]);
-            // console.log(obj.a[0].b.c);
-        console.log(arrPath2);
-        // for (let i = 0; i < arrPath.length; i++) {
-        //     for (let j = 0; j < arrPath[i].length; j++) {
-        //         console.log(arrPath[i][j]);
-        //         if (arrPath[i][j] == "["){
-
-        //         }
-
-        //     }
-
-        // }
-        // ['a[0].b.c', 'a[1]']
-    },
     // MATH Methods
     add: function(firstSumm, secondSumm) {
         return firstSumm + secondSumm
@@ -679,7 +662,7 @@ const myLip = {
                     elementNewArray = ''
                 } else {
                     elementNewArray += path[i]
-                    console.log(elementNewArray);
+                        // console.log(elementNewArray);
                 }
             }
             newArray[newArray.length] = elementNewArray
@@ -832,11 +815,198 @@ const myLip = {
             }
         }
         return result
+    },
+    at: function(obj, path) {
+        let resultValue = Object.assign(obj)
+        let resultArray = []
+        let newArray = []
+        let elementNewArray = ""
+        let elementPath = ""
+        for (let j = 0; j < path.length; j++) {
+            elementPath = path[j]
+            if (typeof elementPath == "string") {
+                for (let i = 0; i < elementPath.length; i++) {
+                    if (elementPath[i] == ".") {
+                        if (elementPath[i - 1] !== ']') {
+                            newArray[newArray.length] = elementNewArray
+                            elementNewArray = ''
+                        }
+                    } else if (elementPath[i] == "[" || elementPath[i] == "]") {
+                        newArray[newArray.length] = elementNewArray
+                        elementNewArray = ''
+                    } else {
+                        elementNewArray += elementPath[i]
+                            // console.log(elementNewArray);
+                    }
+                }
+                if (elementNewArray) {
+                    newArray[newArray.length] = elementNewArray
+                }
+                for (let r = 0; r < newArray.length; r++) {
+                    debugger
+
+                    resultValue = resultValue[newArray[r]]
+                        // console.log(obj[newArray[r]]);
+                }
+            }
+            resultArray[resultArray.length] = resultValue
+            elementNewArray = ""
+            newArray = []
+            resultValue = Object.assign(obj)
+        }
+        //resultValue = obj 
+        return resultArray
+    },
+    merge2: function(object, sources) {
+
+        for (const key in sources) {
+            if (Object.hasOwnProperty.call(sources, key)) {
+                for (let i = 0; i < sources[key].length; i++) {
+                    for (const key2 in sources[key][i]) {
+                        if (Object.hasOwnProperty.call(sources[key][i], key2)) {
+                            if (typeof sources[key][i][key2] !== "undefined") {
+                                object[key][i][key2] = sources[key][i][key2]
+
+
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return object
+    },
+    merge: function(object, sources) {
+        let objects = [object, sources]
+        let boolean
+        console.log(objects);
+        for (let i = 0; i < objects.length; i++) {
+            boolean = this.func(objects[i])
+            if (boolean) {
+                object = this.func2(object, sources)
+            }
+        }
+
+        return object
+    },
+    func: function(obj) {
+        if (!Array.isArray(obj)) {
+            return obj
+        }
+    },
+    func2: function(obj, obj2) {
+        for (const key in obj) {
+            if (Object.hasOwnProperty.call(obj, key)) {
+                for (let i = 0; i < obj[key].length; i++) {
+                    for (const key2 in obj[key]) {
+                        if (Object.hasOwnProperty.call(obj[key][i], key2)) {
+                            if (typeof obj2[key][i][key2] !== "undefined") {
+                                obj[key][i][key2] = obj2[key][i][key2]
+
+
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+        }
+        return obj
+    },
+    toPairs: function(object) {
+        let result = []
+        let resultValue = []
+        for (const key in object) {
+            if (Object.hasOwnProperty.call(object, key)) {
+                resultValue[resultValue.length] = key
+                resultValue[resultValue.length] = object[key]
+            }
+            if (resultValue.length == 2) {
+                result[result.length] = resultValue
+                resultValue = []
+            }
+        }
+        return result
+    },
+    set: function(obj, path, value) {
+        let obj2 = Object.assign(obj)
+        if (typeof path == "string") {
+            this.newPath(path)
+
+            // console.log(newArray)
+            for (let i = 0; i < newArray.length; i++) {
+                obj2 = obj2[newArray[i]]
+            }
+            // console.log(obj2);
+            console.log(newArray[newArray.length - 1]);
+
+            for (const key in obj) {
+                console.log(key);
+                console.log(obj[key]);
+                if (key == newArray[newArray.length - 1]) {
+                    obj[key] = value
+                    console.log("QQQQ");
+                }
+
+            }
+
+            // obj2 = value
+            // console.log(obj);
+
+            // console.log(obj["a"]['0']['b']['c'])
+            // for (let i = 0; i < newArray.length; i++) {
+            //     for (const key in obj) {
+            //         if (Object.hasOwnProperty.call(obj, key)) {
+            //             if (i == newArray.length) {
+            //                 obj[key][i] = value
+
+            //             }
+
+            //         }
+            //     }
+            //     // obj = obj[newArray[i]]
+            // }
+        }
+        return obj
+    },
+    set2: function(obj, path, value) {
+        for (const key in obj) {
+            if (Object.hasOwnProperty.call(obj, key)) {
+                this.set2(obj[key], )
+
+            }
+        }
+    },
+    newPath: function(path) {
+        let newArray = []
+        let elementNewArray = ""
+        for (let i = 0; i < path.length; i++) {
+            if (path[i] == ".") {
+                if (path[i - 1] !== ']') {
+                    newArray[newArray.length] = elementNewArray
+                    elementNewArray = ''
+                }
+            } else if (path[i] == "[" || path[i] == "]") {
+                newArray[newArray.length] = elementNewArray
+                elementNewArray = ''
+            } else {
+                elementNewArray += path[i]
+            }
+        }
+        newArray[newArray.length] = elementNewArray
+        return newArray
     }
+
 }
+
 
 export default myLip
 // var users = [
 //     { 'user': 'barney', 'age': 36, 'active': false },
 //     { 'user': 'fred', 'age': 40, 'active': false }
+// ];// console.log(_.every(users, { 'user': 'barney', 'active': false }));
 // ];// console.log(_.every(users, { 'user': 'barney', 'active': false }));
