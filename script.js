@@ -175,13 +175,25 @@ var other = {
 // console.log(_.merge(object, other));
 // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
 // => { 'a': [{ 'b': 2, 'd': 4 }, { 'c': 3, 'e': 5 }] }
-function Foo() {
-    this.a = 1;
-    this.b = 2;
-}
+// function Foo() {
+//     this.a = 1;
+//     this.b = 2;
+// }
 // console.log(_.toPairs(new Foo));
 var object = { 'a': [{ 'b': { 'c': 3 } }] };
 
-console.log(_.set(object, 'a[0].b.c', 4));
-console.log(object.a[0].b.c);
+// console.log(_.set(object, 'a[0].b.c', 4));
+// console.log(object.a[0].b.c);
 // => 4
+
+// function Foo() {
+//     this.a = 1;
+//     this.b = 2;
+// }
+// console.log(_.values(new Foo));
+// console.log(_.values('hi'));
+// console.log(_.transform([2, 3, 4], function(n) {
+//     // result.push(n *= n);
+//     return n % 2 !== 0;
+// }, []));
+// => [4, 9]

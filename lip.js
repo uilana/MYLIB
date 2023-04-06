@@ -999,6 +999,31 @@ const myLip = {
         }
         newArray[newArray.length] = elementNewArray
         return newArray
+    },
+    values: function(obj) {
+        let result = []
+        if (typeof obj == "object") {
+            for (const key in obj) {
+                if (Object.hasOwnProperty.call(obj, key)) {
+                    result[result.length] = obj[key]
+                }
+            }
+        }
+        if (typeof obj == "string") {
+            for (let i = 0; i < obj.length; i++) {
+                result[result.length] = obj[i]
+            }
+        }
+        return result
+    },
+    transform: function(obj, iteratee, accumulator) {
+        let result = []
+
+        for (let i = 0; i < obj.length; i++) {
+            // result[result.length] = iteratee(result,obj)
+            console.log(iteratee(obj));
+        }
+        return result
     }
 
 }
